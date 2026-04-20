@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="560" viewBox="0 0 1100 560">
+  <defs>
+    <linearGradient id="arcBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0c0c15"/>
+      <stop offset="100%" stop-color="#111128"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6366f1"/>
+    </marker>
+    <marker id="arrow-dim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8888aa"/>
+    </marker>
+  </defs>
+
+  <rect width="1100" height="560" fill="url(#arcBg)"/>
+
+  <g font-family="Inter, system-ui, sans-serif">
+
+    <!-- title -->
+    <text x="550" y="40" font-size="18" font-weight="700" fill="#eeeef8" text-anchor="middle">Arquitetura da extensão</text>
+    <text x="550" y="62" font-size="12" fill="#8888aa" text-anchor="middle">Fluxo de dados entre Meet, side panel e armazenamento local</text>
+
+    <!-- Google Meet box -->
+    <g transform="translate(60, 110)">
+      <rect width="280" height="120" rx="12" fill="#191928" stroke="#252540"/>
+      <text x="20" y="28" font-size="11" font-weight="700" fill="#34d399" letter-spacing="1">GOOGLE MEET · CONTENT SCRIPT</text>
+      <text x="20" y="54" font-size="13" fill="#eeeef8" font-weight="600">content-script.js</text>
+      <text x="20" y="76" font-size="11" fill="#8888aa">• Lê CC do DOM via MutationObserver</text>
+      <text x="20" y="94" font-size="11" fill="#8888aa">• Extrai speaker + texto + timestamp</text>
+      <text x="20" y="112" font-size="11" fill="#8888aa">• Escreve em chrome.storage.session</text>
+    </g>
+
+    <!-- Side Panel box -->
+    <g transform="translate(410, 110)">
+      <rect width="280" height="200" rx="12" fill="#191928" stroke="#6366f1" stroke-width="1.5"/>
+      <text x="20" y="28" font-size="11" font-weight="700" fill="#818cf8" letter-spacing="1">SIDE PANEL · REACT 18</text>
+      <text x="20" y="54" font-size="13" fill="#eeeef8" font-weight="600">App.jsx</text>
+      <text x="20" y="78" font-size="11" fill="#8888aa">• useMeetCaption (storage.onChanged)</text>
+      <text x="20" y="96" font-size="11" fill="#8888aa">• useSystemAudio (tabCapture + hark)</text>
+      <text x="20" y="114" font-size="11" fill="#8888aa">• useDatabase (IndexedDB)</text>
+      <text x="20" y="140" font-size="11" font-weight="700" fill="#a78bfa">AIChat.jsx</text>
+      <text x="20" y="158" font-size="11" fill="#8888aa">• Resumo / Action items / Q&amp;A</text>
+      <text x="20" y="176" font-size="11" fill="#8888aa">• Ask-anything sobre a transcrição</text>
+    </g>
+
+    <!-- Service Worker -->
+    <g transform="translate(760, 110)">
+      <rect width="280" height="120" rx="12" fill="#191928" stroke="#252540"/>
+      <text x="20" y="28" font-size="11" font-weight="700" fill="#f59e0b" letter-spacing="1">BACKGROUND · MV3</text>
+      <text x="20" y="54" font-size="13" fill="#eeeef8" font-weight="600">service-worker.js</text>
+      <text x="20" y="76" font-size="11" fill="#8888aa">• Atalhos globais (Ctrl+Shift+T/M)</text>
+      <text x="20" y="94" font-size="11" fill="#8888aa">• Abertura do side panel</text>
+      <text x="20" y="112" font-size="11" fill="#8888aa">• Roteamento de mensagens</text>
+    </g>
+
+    <!-- IndexedDB -->
+    <g transform="translate(60, 370)">
+      <rect width="280" height="130" rx="12" fill="#191928" stroke="#252540"/>
+      <text x="20" y="28" font-size="11" font-weight="700" fill="#f59e0b" letter-spacing="1">PERSISTÊNCIA LOCAL</text>
+      <text x="20" y="54" font-size="13" fill="#eeeef8" font-weight="600">IndexedDB · services/db.js</text>
+      <text x="20" y="78" font-size="11" fill="#8888aa">• Object store: sessions</text>
+      <text x="20" y="96" font-size="11" fill="#8888aa">• Object store: entries (sessionId idx)</text>
+      <text x="20" y="114" font-size="11" fill="#8888aa">• Export TXT / JSON</text>
+    </g>
+
+    <!-- AI APIs -->
+    <g transform="translate(410, 370)">
+      <rect width="280" height="130" rx="12" fill="#191928" stroke="#252540"/>
+      <text x="20" y="28" font-size="11" font-weight="700" fill="#a78bfa" letter-spacing="1">APIS EXTERNAS (opcionais)</text>
+      <text x="20" y="54" font-size="13" fill="#eeeef8" font-weight="600">services/ai.js · services/groq.js</text>
+      <text x="20" y="78" font-size="11" fill="#8888aa">• Whisper — transcrição de áudio</text>
+      <text x="20" y="96" font-size="11" fill="#8888aa">• GPT-4o-mini / Llama-3.3-70b</text>
+      <text x="20" y="114" font-size="11" fill="#8888aa">• Chamadas diretas do browser</text>
+    </g>
+
+    <!-- Manager -->
+    <g transform="translate(760, 370)">
+      <rect width="280" height="130" rx="12" fill="#191928" stroke="#252540"/>
+      <text x="20" y="28" font-size="11" font-weight="700" fill="#34d399" letter-spacing="1">MANAGER · ABA DEDICADA</text>
+      <text x="20" y="54" font-size="13" fill="#eeeef8" font-weight="600">manager/Manager.jsx</text>
+      <text x="20" y="78" font-size="11" fill="#8888aa">• Busca e histórico completo</text>
+      <text x="20" y="96" font-size="11" fill="#8888aa">• IA sobre sessões antigas</text>
+      <text x="20" y="114" font-size="11" fill="#8888aa">• Exportação em massa</text>
+    </g>
+
+    <!-- Arrows -->
+    <g fill="none" stroke="#6366f1" stroke-width="2">
+      <!-- Meet → Panel -->
+      <path d="M340 170 L410 170" marker-end="url(#arrow)"/>
+      <text x="375" y="160" font-size="10" fill="#8888aa" text-anchor="middle">captions</text>
+    </g>
+    <g fill="none" stroke="#8888aa" stroke-width="1.5" stroke-dasharray="4,3">
+      <!-- SW → Panel -->
+      <path d="M760 170 L690 170" marker-end="url(#arrow-dim)"/>
+      <text x="725" y="160" font-size="10" fill="#8888aa" text-anchor="middle">shortcuts</text>
+    </g>
+    <g fill="none" stroke="#6366f1" stroke-width="2">
+      <!-- Panel → IndexedDB -->
+      <path d="M500 310 L200 370" marker-end="url(#arrow)"/>
+      <text x="330" y="340" font-size="10" fill="#8888aa" text-anchor="middle">persist</text>
+      <!-- Panel → AI -->
+      <path d="M550 310 L550 370" marker-end="url(#arrow)"/>
+      <text x="570" y="345" font-size="10" fill="#8888aa">fetch</text>
+      <!-- Panel → Manager -->
+      <path d="M620 310 L900 370" marker-end="url(#arrow)"/>
+      <text x="775" y="340" font-size="10" fill="#8888aa" text-anchor="middle">open tab</text>
+    </g>
+  </g>
+</svg>

@@ -1,17 +1,55 @@
-# Meeting Transcribe
+<p align="center">
+  <img src="docs/images/banner.svg" alt="Meeting Transcribe" width="100%"/>
+</p>
 
-Extensão para o Chrome que transcreve reuniões do Google Meet em tempo real, com painel lateral, ferramentas de IA (resumo, action items, follow-up por e-mail, Q&A e análise de insights) e gerenciador de sessões em uma aba dedicada do navegador.
+<p align="center">
+  <a href="#"><img src="https://img.shields.io/badge/Chrome-Manifest%20V3-4285f4?logo=googlechrome&logoColor=white" alt="Chrome MV3"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/React-18-61dafb?logo=react&logoColor=000" alt="React 18"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/Vite-6-646cff?logo=vite&logoColor=white" alt="Vite 6"/></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-22d3ee" alt="MIT License"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/AI-OpenAI%20%7C%20Groq-a78bfa" alt="AI Providers"/></a>
+</p>
 
-Toda a transcrição e os dados ficam **salvos localmente no seu navegador** — nenhum servidor intermediário é usado.
+<h1 align="center">Meeting Transcribe</h1>
+
+<p align="center">
+  Extensão Chrome que transcreve reuniões do <b>Google Meet</b> em tempo real, com painel lateral, ferramentas de IA e gerenciador completo de sessões em uma aba dedicada do navegador.
+  <br/>
+  Toda a transcrição e os dados ficam <b>salvos localmente no seu navegador</b> — nenhum servidor intermediário é usado.
+</p>
+
+---
+
+## Prévia
+
+<p align="center">
+  <img src="docs/images/side-panel.svg" alt="Painel lateral com transcrição ao vivo" width="45%"/>
+  &nbsp;&nbsp;
+  <img src="docs/images/ai-tools.svg" alt="Ferramentas de IA" width="45%"/>
+</p>
+
+<p align="center">
+  <i>Painel lateral com transcrição ao vivo e identificação de quem fala (esq.) e ferramentas de IA integradas (dir.)</i>
+</p>
+
+<p align="center">
+  <img src="docs/images/manager.svg" alt="Gerenciador de sessões" width="92%"/>
+</p>
+
+<p align="center">
+  <i>Gerenciador completo de sessões em aba dedicada do navegador</i>
+</p>
 
 ---
 
 ## Visão geral
 
-Meeting Transcribe tem dois modos de transcrição, que funcionam juntos:
+Meeting Transcribe tem dois modos de transcrição que funcionam em paralelo:
 
-1. **Leitura direta das legendas do Google Meet (CC)** — não precisa de chave de API. Um content script lê o DOM das legendas nativas do Meet em tempo real, com o nome de cada participante que está falando.
-2. **Captura de áudio da aba (fallback)** — quando o CC do Meet não está ativo, a extensão captura o áudio da aba (via `chrome.tabCapture`) e envia trechos para a API do Whisper (Groq ou OpenAI) para transcrição.
+| Modo | Como funciona | Precisa de API? |
+| --- | --- | :---: |
+| **Google Meet CC** | Content script lê as legendas nativas do Meet direto do DOM, com speaker label e timestamp | ❌ Não |
+| **Captura de áudio** | Captura o áudio da aba via `chrome.tabCapture` e envia para Whisper (Groq/OpenAI) | ✅ Sim |
 
 Todas as sessões são persistidas em **IndexedDB** no próprio navegador. O histórico pode ser exportado em TXT ou JSON.
 
@@ -19,26 +57,30 @@ Todas as sessões são persistidas em **IndexedDB** no próprio navegador. O his
 
 ## Principais recursos
 
-- Painel lateral nativo do Chrome (Side Panel API)
-- Transcrição em tempo real com identificação de quem fala (quando via CC)
-- Gerenciador de sessões em aba dedicada (`chrome-extension://<id>/manager.html`)
-- Ferramentas de IA sobre a transcrição completa:
+- **Painel lateral nativo** do Chrome (Side Panel API)
+- **Transcrição em tempo real** com identificação de quem fala
+- **Gerenciador de sessões** em aba dedicada (`manager.html`)
+- **Ferramentas de IA** sobre a transcrição completa:
   - Resumo da reunião
   - Action items e próximos passos
   - E-mail de follow-up pronto
   - Perguntas e respostas (Q&A)
   - Análise de insights e tom da reunião
   - Pergunta livre via chat (ask-anything)
-- Exportação para TXT e JSON
-- Notas livres por sessão
-- Atalhos globais de teclado (`Ctrl+Shift+T` para gravar, `Ctrl+Shift+M` para abrir o painel)
-- Detecção automática quando o usuário entra em uma chamada do Meet
+- **Exportação** para TXT e JSON
+- **Notas livres** por sessão
+- **Atalhos globais** (`Ctrl+Shift+T` / `Ctrl+Shift+M`)
+- **Detecção automática** quando o usuário entra em uma chamada do Meet
 - Suporte a **OpenAI** (gpt-4o-mini + whisper-1) e **Groq** (llama-3.3-70b + whisper-large-v3)
-- 100% local — sua chave de API fica no `localStorage` do navegador, nada é enviado para servidores terceiros
+- **100% local** — chave de API fica no `localStorage`, nada é enviado para servidores terceiros
 
 ---
 
 ## Stack e arquitetura
+
+<p align="center">
+  <img src="docs/images/architecture.svg" alt="Arquitetura da extensão" width="92%"/>
+</p>
 
 | Camada | Tecnologia |
 | --- | --- |
@@ -48,32 +90,9 @@ Todas as sessões são persistidas em **IndexedDB** no próprio navegador. O his
 | Ícones | Lucide React (SVG) + PNGs gerados via Jimp |
 | Detecção de voz | `hark.js` sobre `MediaStreamAudioSourceNode` |
 | Banco local | IndexedDB (implementação custom em `src/services/db.js`) |
-| Comunicação CS↔Panel | `chrome.storage.session` + `chrome.storage.onChanged` |
+| Comunicação CS ↔ Panel | `chrome.storage.session` + `chrome.storage.onChanged` |
 | Transcrição (áudio) | Whisper via Groq / OpenAI API |
 | Geração com IA | OpenAI `gpt-4o-mini` ou Groq `llama-3.3-70b-versatile` |
-
-### Arquitetura resumida
-
-```
-┌────────────────────────────────────────────────────────────┐
-│  Google Meet (content-script.js)                           │
-│  • lê o DOM das legendas (CC)                              │
-│  • escreve em chrome.storage.session.meetCaption           │
-└────────────────────────┬───────────────────────────────────┘
-                         │
-┌────────────────────────▼───────────────────────────────────┐
-│  Side Panel (React app)                                    │
-│  • useMeetCaption → escuta storage.onChanged              │
-│  • useSystemAudio → captura áudio via chrome.tabCapture   │
-│  • useDatabase → persiste em IndexedDB                    │
-└────────────────────────┬───────────────────────────────────┘
-                         │
-┌────────────────────────▼───────────────────────────────────┐
-│  Service Worker (background)                               │
-│  • atalhos de teclado                                      │
-│  • abertura do side panel ao clicar no ícone               │
-└────────────────────────────────────────────────────────────┘
-```
 
 ### Estrutura de pastas
 
@@ -112,6 +131,8 @@ meeting-transcribe/
 ├── popup.html
 ├── sidepanel.html
 ├── manager.html
+├── docs/
+│   └── images/                # assets do README
 └── vite.config.js             # multi-entry
 ```
 
@@ -143,7 +164,7 @@ A pasta `dist/` conterá a extensão pronta.
 4. Selecione a pasta `dist/`
 5. Pronto. O ícone de microfone aparecerá na barra do Chrome.
 
-### 4. (Opcional) configurar a IA
+### 4. (Opcional) Configurar a IA
 
 Clique no ícone da engrenagem no painel lateral → escolha **OpenAI** ou **Groq** → cole sua chave de API.
 
@@ -161,7 +182,7 @@ A chave é salva apenas em `localStorage` e nunca sai do seu navegador.
 1. Entre na chamada.
 2. Clique no botão **CC** (legendas) no rodapé do Meet.
 3. Abra o painel lateral pela extensão ou com `Ctrl+Shift+M`.
-4. A transcrição aparece automaticamente conforme as pessoas falam — sem precisar de chave de API.
+4. A transcrição aparece automaticamente — **sem precisar de chave de API**.
 5. Encerre a sessão pelo botão de parar quando quiser arquivar.
 
 ### Em qualquer outra reunião (Zoom, Teams, YouTube, etc.)
@@ -219,8 +240,8 @@ Nenhuma dessas permissões envolve leitura do conteúdo de outras páginas além
 ## Desenvolvimento
 
 ```bash
-npm run dev     # Vite dev server (útil para testar UI fora da extensão)
-npm run build   # gera dist/ pronta para carregar como unpacked extension
+npm run dev                 # Vite dev server (útil para testar UI fora da extensão)
+npm run build               # gera dist/ pronta para carregar como unpacked extension
 node scripts/gen-icons.js   # regenera os PNGs da extensão
 ```
 
@@ -235,7 +256,7 @@ Para recarregar as mudanças na extensão, use o botão de reload em `chrome://e
 - [ ] Upload de áudio para transcrição offline de reuniões já gravadas
 - [ ] Modo claro / escuro configurável
 - [ ] Integração com Google Drive para backup automático
-- [ ] Importação de transcrições em TXT/VTT/SRT
+- [ ] Importação de transcrições em TXT / VTT / SRT
 
 ---
 

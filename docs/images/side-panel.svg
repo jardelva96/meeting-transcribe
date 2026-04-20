@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="680" viewBox="0 0 400 680">
+  <defs>
+    <clipPath id="rounded">
+      <rect width="400" height="680" rx="14"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#rounded)">
+    <rect width="400" height="680" fill="#0c0c15"/>
+
+    <!-- Topbar -->
+    <rect x="0" y="0" width="400" height="44" fill="#111120"/>
+    <line x1="0" y1="44" x2="400" y2="44" stroke="#1e1e35"/>
+    <circle cx="24" cy="22" r="3.5" fill="#f59e0b"/>
+    <text x="38" y="26" font-family="Inter, sans-serif" font-size="11.5" fill="#8888aa" font-weight="500">Sprint Planning · 14:32</text>
+    <text x="195" y="26" font-family="JetBrains Mono, monospace" font-size="10" fill="#f59e0b">12:04</text>
+
+    <!-- topbar icons -->
+    <g stroke="#404060" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <g transform="translate(295, 14)"><rect x="0" y="0" width="14" height="14" rx="2"/><line x1="7" y1="0" x2="7" y2="14"/><line x1="0" y1="7" x2="14" y2="7"/></g>
+      <g transform="translate(325, 14)"><polyline points="1 4, 7 9, 13 4"/><polyline points="1 9, 7 14, 13 9" opacity="0.5"/></g>
+      <g transform="translate(355, 14)"><circle cx="7" cy="7" r="2.5"/><path d="M13 7a6 6 0 0 1-1 3l1.5 1.5M1 7a6 6 0 0 0 1 3l-1.5 1.5"/></g>
+    </g>
+
+    <!-- Tabs -->
+    <rect x="0" y="44" width="400" height="40" fill="#111120"/>
+    <line x1="0" y1="84" x2="400" y2="84" stroke="#1e1e35"/>
+    <text x="100" y="68" font-family="Inter, sans-serif" font-size="11.5" fill="#eeeef8" font-weight="600" text-anchor="middle">Transcrição ao vivo</text>
+    <line x1="30" y1="82" x2="170" y2="82" stroke="#6366f1" stroke-width="2"/>
+    <g transform="translate(255, 62)">
+      <rect x="-4" y="-10" width="10" height="10" rx="2" fill="none" stroke="#404060" stroke-width="1.5"/>
+    </g>
+    <text x="300" y="68" font-family="Inter, sans-serif" font-size="11.5" fill="#404060" font-weight="600" text-anchor="middle">Ferramentas de IA</text>
+
+    <!-- CC banner -->
+    <rect x="0" y="84" width="400" height="30" fill="rgba(52,211,153,0.1)"/>
+    <line x1="0" y1="114" x2="400" y2="114" stroke="rgba(52,211,153,0.2)"/>
+    <circle cx="18" cy="99" r="2.5" fill="#34d399"/>
+    <text x="28" y="103" font-family="Inter, sans-serif" font-size="11" fill="#34d399" font-weight="500">CC ativo · Sprint Planning</text>
+
+    <!-- subtabs -->
+    <rect x="0" y="114" width="400" height="32" fill="#0c0c15"/>
+    <line x1="0" y1="146" x2="400" y2="146" stroke="#1e1e35"/>
+    <text x="12" y="134" font-family="Inter, sans-serif" font-size="10" fill="#eeeef8" font-weight="700" letter-spacing="0.9">TRANSCRIÇÃO</text>
+    <rect x="92" y="128" width="22" height="12" rx="6" fill="rgba(99,102,241,0.12)"/>
+    <text x="103" y="137" font-family="Inter, sans-serif" font-size="9" fill="#818cf8" font-weight="700" text-anchor="middle">24</text>
+    <line x1="12" y1="144" x2="114" y2="144" stroke="#34d399" stroke-width="2"/>
+    <text x="142" y="134" font-family="Inter, sans-serif" font-size="10" fill="#404060" font-weight="700" letter-spacing="0.9">NOTAS</text>
+
+    <!-- Transcript entries -->
+    <g font-family="Inter, sans-serif">
+      <!-- entry 1 -->
+      <text x="16" y="172" font-size="11" font-weight="700" fill="#818cf8">Ana Silva</text>
+      <text x="75" y="172" font-size="10" fill="#404060" font-family="JetBrains Mono, monospace">14:33:02</text>
+      <text x="16" y="192" font-size="13" fill="#eeeef8">Então o plano pra próxima sprint inclui a</text>
+      <text x="16" y="212" font-size="13" fill="#eeeef8">migração do auth e dois bugs de alta prioridade.</text>
+      <line x1="16" y1="226" x2="384" y2="226" stroke="#1e1e35"/>
+
+      <!-- entry 2 -->
+      <text x="16" y="250" font-size="11" font-weight="700" fill="#818cf8">Carlos Mendes</text>
+      <text x="97" y="250" font-size="10" fill="#404060" font-family="JetBrains Mono, monospace">14:33:18</text>
+      <text x="16" y="270" font-size="13" fill="#eeeef8">A migração eu posso assumir, mas preciso de</text>
+      <text x="16" y="290" font-size="13" fill="#eeeef8">um pair com alguém que já mexeu no módulo.</text>
+      <line x1="16" y1="304" x2="384" y2="304" stroke="#1e1e35"/>
+
+      <!-- entry 3 -->
+      <text x="16" y="328" font-size="11" font-weight="700" fill="#818cf8">Ana Silva</text>
+      <text x="75" y="328" font-size="10" fill="#404060" font-family="JetBrains Mono, monospace">14:33:41</text>
+      <text x="16" y="348" font-size="13" fill="#eeeef8">Perfeito. Vou marcar uma call com a Júlia pra</text>
+      <text x="16" y="368" font-size="13" fill="#eeeef8">vocês dois sincronizarem ainda esta semana.</text>
+      <line x1="16" y1="382" x2="384" y2="382" stroke="#1e1e35"/>
+
+      <!-- live -->
+      <circle cx="19" cy="412" r="3" fill="#34d399"/>
+      <text x="32" y="408" font-size="11" font-weight="700" fill="#818cf8">Júlia Torres</text>
+      <text x="90" y="408" font-size="10" fill="#404060" font-family="JetBrains Mono, monospace">14:33:55</text>
+      <text x="32" y="428" font-size="13" fill="#8888aa" font-style="italic">Certo, estou disponível na quarta à tarde...</text>
+    </g>
+
+    <!-- Bottom bar -->
+    <rect x="0" y="620" width="400" height="60" fill="#111120"/>
+    <line x1="0" y1="620" x2="400" y2="620" stroke="#1e1e35"/>
+    <text x="16" y="655" font-family="Inter, sans-serif" font-size="11" fill="#404060">Lendo CC do Meet</text>
+
+    <!-- action buttons -->
+    <g>
+      <rect x="240" y="633" width="34" height="34" rx="8" fill="#191928" stroke="#252540"/>
+      <g transform="translate(250, 643)" stroke="#404060" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="10" height="12" rx="1.5"/><path d="M6 2V1 h4 v1"/>
+      </g>
+
+      <rect x="282" y="633" width="34" height="34" rx="8" fill="#191928" stroke="#252540"/>
+      <g transform="translate(292, 643)" stroke="#404060" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="7" y1="1" x2="7" y2="11"/><polyline points="3 7, 7 11, 11 7"/><line x1="1" y1="13" x2="13" y2="13"/>
+      </g>
+
+      <!-- record button -->
+      <circle cx="346" cy="650" r="22" fill="#f59e0b"/>
+      <rect x="340" y="644" width="12" height="12" rx="2" fill="#1a1a0e"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0c0c15"/>
+      <stop offset="100%" stop-color="#111128"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#818cf8"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="360" fill="url(#bg)"/>
+  <circle cx="960" cy="180" r="260" fill="url(#glow)"/>
+
+  <!-- grid pattern -->
+  <g stroke="#252540" stroke-width="0.5" opacity="0.4">
+    <path d="M0 60 L1200 60 M0 120 L1200 120 M0 180 L1200 180 M0 240 L1200 240 M0 300 L1200 300"/>
+    <path d="M60 0 L60 360 M120 0 L120 360 M180 0 L180 360 M240 0 L240 360 M300 0 L300 360 M360 0 L360 360 M420 0 L420 360 M480 0 L480 360 M540 0 L540 360 M600 0 L600 360 M660 0 L660 360 M720 0 L720 360 M780 0 L780 360 M840 0 L840 360 M900 0 L900 360 M960 0 L960 360 M1020 0 L1020 360 M1080 0 L1080 360 M1140 0 L1140 360"/>
+  </g>
+
+  <!-- waveform -->
+  <g transform="translate(870, 180)" stroke="url(#accent)" stroke-width="4" stroke-linecap="round" fill="none">
+    <line x1="-150" y1="-20" x2="-150" y2="20"/>
+    <line x1="-120" y1="-40" x2="-120" y2="40"/>
+    <line x1="-90" y1="-60" x2="-90" y2="60"/>
+    <line x1="-60" y1="-30" x2="-60" y2="30"/>
+    <line x1="-30" y1="-70" x2="-30" y2="70"/>
+    <line x1="0"   y1="-45" x2="0"   y2="45"/>
+    <line x1="30"  y1="-80" x2="30"  y2="80"/>
+    <line x1="60"  y1="-35" x2="60"  y2="35"/>
+    <line x1="90"  y1="-55" x2="90"  y2="55"/>
+    <line x1="120" y1="-25" x2="120" y2="25"/>
+    <line x1="150" y1="-15" x2="150" y2="15"/>
+  </g>
+
+  <!-- mic icon -->
+  <g transform="translate(96, 90)" fill="none" stroke="url(#accent)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="17" y="2" width="24" height="42" rx="12" fill="#6366f1"/>
+    <path d="M8 26 a21 21 0 0 0 42 0"/>
+    <line x1="29" y1="47" x2="29" y2="62"/>
+    <line x1="17" y1="62" x2="41" y2="62"/>
+  </g>
+
+  <!-- title -->
+  <g font-family="Inter, system-ui, sans-serif" fill="#eeeef8">
+    <text x="190" y="130" font-size="56" font-weight="800" letter-spacing="-1.5">Meeting Transcribe</text>
+    <text x="190" y="180" font-size="20" font-weight="500" fill="#8888aa">
+      Transcrição de reuniões em tempo real, com IA, direto no Chrome.
+    </text>
+
+    <!-- feature chips -->
+    <g transform="translate(190, 220)">
+      <g>
+        <rect x="0" y="0" width="180" height="32" rx="16" fill="#191928" stroke="#252540"/>
+        <text x="90" y="21" font-size="12" font-weight="600" fill="#818cf8" text-anchor="middle">Google Meet CC</text>
+      </g>
+      <g transform="translate(195, 0)">
+        <rect x="0" y="0" width="180" height="32" rx="16" fill="#191928" stroke="#252540"/>
+        <text x="90" y="21" font-size="12" font-weight="600" fill="#34d399" text-anchor="middle">Whisper • Groq / OpenAI</text>
+      </g>
+      <g transform="translate(390, 0)">
+        <rect x="0" y="0" width="150" height="32" rx="16" fill="#191928" stroke="#252540"/>
+        <text x="75" y="21" font-size="12" font-weight="600" fill="#f59e0b" text-anchor="middle">IndexedDB Local</text>
+      </g>
+      <g transform="translate(555, 0)">
+        <rect x="0" y="0" width="130" height="32" rx="16" fill="#191928" stroke="#252540"/>
+        <text x="65" y="21" font-size="12" font-weight="600" fill="#a78bfa" text-anchor="middle">Manifest V3</text>
+      </g>
+    </g>
+
+    <text x="190" y="300" font-size="13" font-weight="500" fill="#404060">
+      React 18 · Vite 6 · Lucide · hark.js · Chrome Side Panel API
+    </text>
+  </g>
+</svg>
