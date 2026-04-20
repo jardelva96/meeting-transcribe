@@ -13,134 +13,134 @@
 <h1 align="center">Meeting Transcribe</h1>
 
 <p align="center">
-  Extensão Chrome que transcreve reuniões do <b>Google Meet</b> em tempo real, com painel lateral, ferramentas de IA e gerenciador completo de sessões em uma aba dedicada do navegador.
+  Chrome extension that transcribes <b>Google Meet</b> meetings in real time, with a side panel, AI tools, and a full session manager in a dedicated browser tab.
   <br/>
-  Toda a transcrição e os dados ficam <b>salvos localmente no seu navegador</b> — nenhum servidor intermediário é usado.
+  All transcripts and data are <b>stored locally in your browser</b> — no intermediate server is used.
 </p>
 
 ---
 
-## Prévia
+## Preview
 
 <p align="center">
-  <img src="docs/images/side-panel.svg" alt="Painel lateral com transcrição ao vivo" width="45%"/>
+  <img src="docs/images/side-panel.svg" alt="Side panel with live transcription" width="45%"/>
   &nbsp;&nbsp;
-  <img src="docs/images/ai-tools.svg" alt="Ferramentas de IA" width="45%"/>
+  <img src="docs/images/ai-tools.svg" alt="AI tools" width="45%"/>
 </p>
 
 <p align="center">
-  <i>Painel lateral com transcrição ao vivo e identificação de quem fala (esq.) e ferramentas de IA integradas (dir.)</i>
+  <i>Side panel with live transcription and speaker identification (left) and integrated AI tools (right)</i>
 </p>
 
 <p align="center">
-  <img src="docs/images/manager.svg" alt="Gerenciador de sessões" width="92%"/>
+  <img src="docs/images/manager.svg" alt="Session manager" width="92%"/>
 </p>
 
 <p align="center">
-  <i>Gerenciador completo de sessões em aba dedicada do navegador</i>
+  <i>Full session manager in a dedicated browser tab</i>
 </p>
 
 ---
 
-## Visão geral
+## Overview
 
-Meeting Transcribe tem dois modos de transcrição que funcionam em paralelo:
+Meeting Transcribe has two transcription modes that work in parallel:
 
-| Modo | Como funciona | Precisa de API? |
+| Mode | How it works | API required? |
 | --- | --- | :---: |
-| **Google Meet CC** | Content script lê as legendas nativas do Meet direto do DOM, com speaker label e timestamp | ❌ Não |
-| **Captura de áudio** | Captura o áudio da aba via `chrome.tabCapture` e envia para Whisper (Groq/OpenAI) | ✅ Sim |
+| **Google Meet CC** | A content script reads the native Meet captions directly from the DOM, with speaker label and timestamp | ❌ No |
+| **Audio capture** | Captures the tab audio via `chrome.tabCapture` and sends it to Whisper (Groq/OpenAI) | ✅ Yes |
 
-Todas as sessões são persistidas em **IndexedDB** no próprio navegador. O histórico pode ser exportado em TXT ou JSON.
-
----
-
-## Principais recursos
-
-- **Painel lateral nativo** do Chrome (Side Panel API)
-- **Transcrição em tempo real** com identificação de quem fala
-- **Gerenciador de sessões** em aba dedicada (`manager.html`)
-- **Ferramentas de IA** sobre a transcrição completa:
-  - Resumo da reunião
-  - Action items e próximos passos
-  - E-mail de follow-up pronto
-  - Perguntas e respostas (Q&A)
-  - Análise de insights e tom da reunião
-  - Pergunta livre via chat (ask-anything)
-- **Exportação** para TXT e JSON
-- **Notas livres** por sessão
-- **Atalhos globais** (`Ctrl+Shift+T` / `Ctrl+Shift+M`)
-- **Detecção automática** quando o usuário entra em uma chamada do Meet
-- Suporte a **OpenAI** (gpt-4o-mini + whisper-1) e **Groq** (llama-3.3-70b + whisper-large-v3)
-- **100% local** — chave de API fica no `localStorage`, nada é enviado para servidores terceiros
+All sessions are persisted to **IndexedDB** inside the browser itself. History can be exported as TXT or JSON.
 
 ---
 
-## Stack e arquitetura
+## Key features
+
+- **Native Chrome side panel** (Side Panel API)
+- **Real-time transcription** with speaker identification
+- **Session manager** in a dedicated tab (`manager.html`)
+- **AI tools** over the full transcript:
+  - Meeting summary
+  - Action items and next steps
+  - Ready-to-send follow-up email
+  - Questions and answers (Q&A)
+  - Insights and meeting tone analysis
+  - Free-form question via chat (ask anything)
+- **Export** to TXT and JSON
+- **Free-form notes** per session
+- **Global shortcuts** (`Ctrl+Shift+T` / `Ctrl+Shift+M`)
+- **Auto-detection** when the user joins a Meet call
+- Supports **OpenAI** (gpt-4o-mini + whisper-1) and **Groq** (llama-3.3-70b + whisper-large-v3)
+- **100% local** — the API key lives in `localStorage`, nothing is sent to third-party servers
+
+---
+
+## Stack and architecture
 
 <p align="center">
-  <img src="docs/images/architecture.svg" alt="Arquitetura da extensão" width="92%"/>
+  <img src="docs/images/architecture.svg" alt="Extension architecture" width="92%"/>
 </p>
 
-| Camada | Tecnologia |
+| Layer | Technology |
 | --- | --- |
 | Framework | React 18 |
 | Bundler | Vite 6 (multi-entry: `sidepanel.html`, `popup.html`, `manager.html`) |
 | Manifest | Chrome Extensions MV3 |
-| Ícones | Lucide React (SVG) + PNGs gerados via Jimp |
-| Detecção de voz | `hark.js` sobre `MediaStreamAudioSourceNode` |
-| Banco local | IndexedDB (implementação custom em `src/services/db.js`) |
-| Comunicação CS ↔ Panel | `chrome.storage.session` + `chrome.storage.onChanged` |
-| Transcrição (áudio) | Whisper via Groq / OpenAI API |
-| Geração com IA | OpenAI `gpt-4o-mini` ou Groq `llama-3.3-70b-versatile` |
+| Icons | Lucide React (SVG) + PNGs generated via Jimp |
+| Voice detection | `hark.js` over `MediaStreamAudioSourceNode` |
+| Local database | IndexedDB (custom implementation in `src/services/db.js`) |
+| CS ↔ Panel messaging | `chrome.storage.session` + `chrome.storage.onChanged` |
+| Transcription (audio) | Whisper via Groq / OpenAI API |
+| AI generation | OpenAI `gpt-4o-mini` or Groq `llama-3.3-70b-versatile` |
 
-### Estrutura de pastas
+### Folder structure
 
 ```
 meeting-transcribe/
 ├── public/
 │   ├── manifest.json          # Manifest V3
 │   ├── service-worker.js      # background worker
-│   ├── content-script.js      # leitor de CC do Meet
+│   ├── content-script.js      # Meet CC reader
 │   └── icons/                 # icon16.png, icon48.png, icon128.png
 ├── scripts/
-│   └── gen-icons.js           # geração de PNGs via Jimp
+│   └── gen-icons.js           # PNG generation via Jimp
 ├── src/
-│   ├── App.jsx                # painel lateral principal
+│   ├── App.jsx                # main side panel
 │   ├── components/
-│   │   ├── AIChat.jsx         # chat de IA do side panel
-│   │   ├── AIPanel.jsx        # painel de IA do manager
-│   │   ├── Modal.jsx          # modal de confirmação custom
-│   │   ├── Settings.jsx       # configuração de provedor/token
-│   │   └── Sessions.jsx       # listagem de sessões salvas
+│   │   ├── AIChat.jsx         # side panel AI chat
+│   │   ├── AIPanel.jsx        # manager AI panel
+│   │   ├── Modal.jsx          # custom confirmation modal
+│   │   ├── Settings.jsx       # provider/token configuration
+│   │   └── Sessions.jsx       # list of saved sessions
 │   ├── hooks/
-│   │   ├── useDatabase.js     # wrapper sobre IndexedDB
-│   │   ├── useSystemAudio.js  # captura de áudio da aba
-│   │   └── useMeetCaption.js  # listener de captions do Meet
+│   │   ├── useDatabase.js     # IndexedDB wrapper
+│   │   ├── useSystemAudio.js  # tab audio capture
+│   │   └── useMeetCaption.js  # Meet captions listener
 │   ├── manager/
-│   │   ├── Manager.jsx        # aba de gerenciamento completa
+│   │   ├── Manager.jsx        # full management tab
 │   │   └── manager.css
 │   ├── popup/
-│   │   └── Popup.jsx          # popup do ícone da extensão
+│   │   └── Popup.jsx          # extension icon popup
 │   ├── services/
-│   │   ├── ai.js              # chamadas de chat completion
+│   │   ├── ai.js              # chat completion calls
 │   │   ├── db.js              # IndexedDB (sessions + entries)
-│   │   └── groq.js            # transcrição via Whisper
+│   │   └── groq.js            # transcription via Whisper
 │   └── styles/
-│       └── app.css            # design system do painel
+│       └── app.css            # side panel design system
 ├── popup.html
 ├── sidepanel.html
 ├── manager.html
 ├── docs/
-│   └── images/                # assets do README
+│   └── images/                # README assets
 └── vite.config.js             # multi-entry
 ```
 
 ---
 
-## Instalação (uso local)
+## Installation (local use)
 
-### 1. Clonar e instalar dependências
+### 1. Clone and install dependencies
 
 ```bash
 git clone https://github.com/jardelva96/meeting-transcribe.git
@@ -154,131 +154,131 @@ npm install
 npm run build
 ```
 
-A pasta `dist/` conterá a extensão pronta.
+The `dist/` folder will contain the ready-to-load extension.
 
-### 3. Carregar no Chrome
+### 3. Load into Chrome
 
-1. Abra `chrome://extensions`
-2. Ative o **Modo do desenvolvedor** (canto superior direito)
-3. Clique em **Carregar sem compactação**
-4. Selecione a pasta `dist/`
-5. Pronto. O ícone de microfone aparecerá na barra do Chrome.
+1. Open `chrome://extensions`
+2. Enable **Developer mode** (top-right corner)
+3. Click **Load unpacked**
+4. Select the `dist/` folder
+5. Done. The microphone icon will appear in the Chrome toolbar.
 
-### 4. (Opcional) Configurar a IA
+### 4. (Optional) Configure AI
 
-Clique no ícone da engrenagem no painel lateral → escolha **OpenAI** ou **Groq** → cole sua chave de API.
+Click the gear icon in the side panel → choose **OpenAI** or **Groq** → paste your API key.
 
 - OpenAI: https://platform.openai.com/api-keys
 - Groq: https://console.groq.com/keys
 
-A chave é salva apenas em `localStorage` e nunca sai do seu navegador.
+The key is saved only in `localStorage` and never leaves your browser.
 
 ---
 
-## Como usar
+## How to use
 
-### Em uma reunião do Google Meet
+### In a Google Meet call
 
-1. Entre na chamada.
-2. Clique no botão **CC** (legendas) no rodapé do Meet.
-3. Abra o painel lateral pela extensão ou com `Ctrl+Shift+M`.
-4. A transcrição aparece automaticamente — **sem precisar de chave de API**.
-5. Encerre a sessão pelo botão de parar quando quiser arquivar.
+1. Join the call.
+2. Click the **CC** (captions) button at the bottom of Meet.
+3. Open the side panel through the extension or with `Ctrl+Shift+M`.
+4. The transcript shows up automatically — **no API key required**.
+5. Stop the session with the stop button when you want to archive it.
 
-### Em qualquer outra reunião (Zoom, Teams, YouTube, etc.)
+### In any other meeting (Zoom, Teams, YouTube, etc.)
 
-1. Abra o painel lateral.
-2. Clique no botão âmbar de gravar (ou `Ctrl+Shift+T`).
-3. O áudio da aba atual é capturado e enviado em trechos para o Whisper.
-4. A transcrição aparece em tempo real.
+1. Open the side panel.
+2. Click the amber record button (or `Ctrl+Shift+T`).
+3. The audio from the current tab is captured and streamed in chunks to Whisper.
+4. The transcript appears in real time.
 
-### Ferramentas de IA
+### AI tools
 
-Na aba **Ferramentas de IA** você pode usar ações rápidas ou fazer perguntas livres sobre o conteúdo da reunião atual. Tudo roda sobre a transcrição, sem reenvio do áudio.
+On the **AI tools** tab you can run quick actions or ask free-form questions about the current meeting. Everything runs on top of the transcript, without re-uploading the audio.
 
-### Gerenciador
+### Manager
 
-Clique no ícone de grade na topbar para abrir o **Manager** em uma aba nova: busca por reunião, histórico completo, exportação, exclusão com confirmação e execução de IA em sessões antigas.
+Click the grid icon in the topbar to open the **Manager** in a new tab: meeting search, full history, export, delete with confirmation, and AI execution on older sessions.
 
 ---
 
-## Atalhos
+## Shortcuts
 
-| Atalho | Ação |
+| Shortcut | Action |
 | --- | --- |
-| `Ctrl+Shift+T` | Iniciar / parar gravação de áudio |
-| `Ctrl+Shift+M` | Abrir o painel lateral |
+| `Ctrl+Shift+T` | Start / stop audio recording |
+| `Ctrl+Shift+M` | Open the side panel |
 
-*(No macOS, `Cmd` no lugar de `Ctrl`.)*
+*(On macOS, use `Cmd` instead of `Ctrl`.)*
 
 ---
 
-## Permissões solicitadas
+## Requested permissions
 
-| Permissão | Motivo |
+| Permission | Reason |
 | --- | --- |
-| `tabCapture` | capturar o áudio da aba para transcrição |
-| `storage` | persistir configurações e sessões |
-| `activeTab` | identificar a aba atual para captura |
-| `sidePanel` | mostrar o painel lateral |
-| `tabs` | abrir o gerenciador em nova aba |
-| `host_permissions: https://meet.google.com/*` | injetar o content script que lê o CC |
+| `tabCapture` | capture the tab audio for transcription |
+| `storage` | persist settings and sessions |
+| `activeTab` | identify the current tab for capture |
+| `sidePanel` | show the side panel |
+| `tabs` | open the manager in a new tab |
+| `host_permissions: https://meet.google.com/*` | inject the content script that reads the CC |
 
-Nenhuma dessas permissões envolve leitura do conteúdo de outras páginas além do Google Meet.
-
----
-
-## Privacidade
-
-- **O áudio nunca passa por um servidor do projeto.** Quando você usa o modo Whisper, o áudio vai diretamente do seu navegador para a API do provedor que você configurou (OpenAI ou Groq).
-- **Transcrições ficam em IndexedDB local.** Nada é sincronizado para a nuvem.
-- **Chaves de API ficam em `localStorage` do navegador.**
-- **Content script do Meet** apenas lê as legendas já geradas pelo próprio Google — não grava nada, não intercepta áudio bruto.
+None of these permissions involve reading the content of pages other than Google Meet.
 
 ---
 
-## Desenvolvimento
+## Privacy
+
+- **Audio never passes through a project server.** When you use the Whisper mode, the audio goes directly from your browser to the API provider you configured (OpenAI or Groq).
+- **Transcripts stay in local IndexedDB.** Nothing is synced to the cloud.
+- **API keys live in the browser's `localStorage`.**
+- **The Meet content script** only reads captions already generated by Google — it does not record anything and does not intercept raw audio.
+
+---
+
+## Development
 
 ```bash
-npm run dev                 # Vite dev server (útil para testar UI fora da extensão)
-npm run build               # gera dist/ pronta para carregar como unpacked extension
-node scripts/gen-icons.js   # regenera os PNGs da extensão
+npm run dev                 # Vite dev server (useful for testing UI outside the extension)
+npm run build               # builds dist/ ready to load as an unpacked extension
+node scripts/gen-icons.js   # regenerates the extension PNGs
 ```
 
-Para recarregar as mudanças na extensão, use o botão de reload em `chrome://extensions`.
+To reload changes in the extension, use the reload button on `chrome://extensions`.
 
 ---
 
 ## Roadmap
 
-- [ ] Limpeza automática de sessões antigas (> 90 dias, opt-in)
-- [ ] Suporte ao CC do Microsoft Teams
-- [ ] Upload de áudio para transcrição offline de reuniões já gravadas
-- [ ] Modo claro / escuro configurável
-- [ ] Integração com Google Drive para backup automático
-- [ ] Importação de transcrições em TXT / VTT / SRT
+- [ ] Automatic cleanup of old sessions (> 90 days, opt-in)
+- [ ] Microsoft Teams CC support
+- [ ] Audio upload for offline transcription of already-recorded meetings
+- [ ] Configurable light / dark mode
+- [ ] Google Drive integration for automatic backup
+- [ ] Transcript import from TXT / VTT / SRT
 
 ---
 
-## Licença e direitos autorais
+## License and copyright
 
-Copyright © 2026 **Jardel Vieira Alves**. Todos os direitos reservados.
+Copyright © 2026 **Jardel Vieira Alves**. All rights reserved.
 
-Distribuído sob a [Licença MIT](LICENSE) — você pode usar, copiar, modificar, incorporar em outros produtos e distribuir, desde que mantenha o aviso de copyright e a licença original.
+Distributed under the [MIT License](LICENSE) — you may use, copy, modify, embed in other products and distribute, as long as you keep the copyright notice and the original license.
 
-Este software é fornecido "como está", sem garantias de qualquer tipo. Consulte o arquivo [LICENSE](LICENSE) para os termos completos.
+This software is provided "as is", without warranty of any kind. See the [LICENSE](LICENSE) file for full terms.
 
-### Marcas registradas
+### Trademarks
 
-- *Google Meet* é uma marca registrada do Google LLC. Este projeto não é afiliado, endossado ou mantido pelo Google.
-- *OpenAI*, *Whisper* e *GPT* são marcas registradas da OpenAI, L.L.C.
-- *Groq* e *Llama* são marcas registradas de seus respectivos detentores.
+- *Google Meet* is a registered trademark of Google LLC. This project is not affiliated with, endorsed by, or maintained by Google.
+- *OpenAI*, *Whisper* and *GPT* are registered trademarks of OpenAI, L.L.C.
+- *Groq* and *Llama* are registered trademarks of their respective owners.
 
 ---
 
-## Autor
+## Author
 
 **Jardel Vieira Alves**
 [github.com/jardelva96](https://github.com/jardelva96)
 
-Contribuições, issues e sugestões são bem-vindas.
+Contributions, issues and suggestions are welcome.
